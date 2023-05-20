@@ -4,5 +4,6 @@ export const s = StyleSheet.create({
   text: {
     color: "white",
     fontFamily: "Alasta-Regular",
+    fontSize: 30,
   },
 });

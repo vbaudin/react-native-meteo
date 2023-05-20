@@ -8,7 +8,7 @@ import { s } from "./Home.style";
 import { useEffect, useState } from "react";
 
 import { fetchWeatherFromCoords } from "../../api/meteo";
-import Txt from "../../components/Txt/Txt";
+import MeteoBasic from "../../components/MeteoBasic/MeteoBasic";
 
 const Home = () => {
   const [coords, setCoords] = useState();
@@ -49,7 +49,7 @@ const Home = () => {
   return (
     <>
       <View style={s.meteo_basic}>
-        <Txt style={{ fontSize: 60 }}></Txt>
+        <MeteoBasic />
       </View>
       <View style={s.search_bar}></View>
       <View style={s.meteo_advanced}></View>
