@@ -10,9 +10,12 @@ import { useEffect, useState } from "react";
 import { fetchWeatherFromCoords } from "../../api/meteo";
 import MeteoBasic from "../../components/MeteoBasic/MeteoBasic";
 
+import { getWeatherInterpretation } from "../../services/meteo-service";
+
 const Home = () => {
   const [coords, setCoords] = useState();
   const [weather, setWeather] = useState();
+  const currentWeather = weather?.current_weather;
 
   useEffect(() => {
     getUserCoords();
@@ -23,8 +26,6 @@ const Home = () => {
       fetchWeather(coords);
     }
   }, [coords]);
-
-  // MeteoAPI.toto();
 
   const getUserCoords = async () => {
     const { status } = await requestForegroundPermissionsAsync();
@@ -46,15 +47,19 @@ const Home = () => {
     setWeather(weatherResponse);
   };
 
-  return (
+  return currentWeather ? (
     <>
       <View style={s.meteo_basic}>
-        <MeteoBasic />
+        <MeteoBasic
+          temperature={Math.round(currentWeather?.temperature)}
+          city="todo"
+          interpretation={getWeatherInterpretation(currentWeather.weathercode)}
+        />
       </View>
       <View style={s.search_bar}></View>
       <View style={s.meteo_advanced}></View>
     </>
-  );
+  ) : null;
 };
 
 export default Home;
