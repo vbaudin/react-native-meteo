@@ -4,8 +4,13 @@ import backgroundImg from "./assets/background.png";
 
 import { s } from "./App.style";
 import { ImageBackground } from "react-native";
+import AlataRegular from "./assets/fonts/Alata-Regular.ttf";
+import { useFonts } from "expo-font";
 
 const App = () => {
+  const [isFontLoaded] = useFonts({
+    "Alasta-Regular": AlataRegular,
+  });
   return (
     <ImageBackground
       source={backgroundImg}
@@ -14,7 +19,7 @@ const App = () => {
     >
       <SafeAreaProvider>
         <SafeAreaView style={s.container}>
-          <Home />
+          {isFontLoaded ? <Home /> : null}
         </SafeAreaView>
       </SafeAreaProvider>
     </ImageBackground>
