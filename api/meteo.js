@@ -7,3 +7,14 @@ export const fetchWeatherFromCoords = async (coords) => {
     )
   ).data;
 };
+
+export const fetchCityFromCoords = async (coords) => {
+  const {
+    address: { city, village },
+  } = (
+    await axios.get(
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${coords.lat}&lon=${coords.lng}`
+    )
+  ).data;
+  return city || village;
+};

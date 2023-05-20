@@ -7,7 +7,7 @@ import { Text, View } from "react-native";
 import { s } from "./Home.style";
 import { useEffect, useState } from "react";
 
-import { fetchWeatherFromCoords } from "../../api/meteo";
+import { fetchCityFromCoords, fetchWeatherFromCoords } from "../../api/meteo";
 import MeteoBasic from "../../components/MeteoBasic/MeteoBasic";
 
 import { getWeatherInterpretation } from "../../services/meteo-service";
@@ -15,6 +15,7 @@ import { getWeatherInterpretation } from "../../services/meteo-service";
 const Home = () => {
   const [coords, setCoords] = useState();
   const [weather, setWeather] = useState();
+  const [city, setCity] = useState();
   const currentWeather = weather?.current_weather;
 
   useEffect(() => {
@@ -24,6 +25,7 @@ const Home = () => {
   useEffect(() => {
     if (coords) {
       fetchWeather(coords);
+      fetchCity(coords);
     }
   }, [coords]);
 
@@ -47,12 +49,17 @@ const Home = () => {
     setWeather(weatherResponse);
   };
 
+  const fetchCity = async (coordinates) => {
+    const cityResponse = await fetchCityFromCoords(coordinates);
+    setCity(cityResponse);
+  };
+
   return currentWeather ? (
     <>
       <View style={s.meteo_basic}>
         <MeteoBasic
           temperature={Math.round(currentWeather?.temperature)}
-          city="todo"
+          city={city}
           interpretation={getWeatherInterpretation(currentWeather.weathercode)}
         />
       </View>
