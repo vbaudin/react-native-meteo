@@ -13,6 +13,7 @@ import MeteoBasic from "../../components/MeteoBasic/MeteoBasic";
 import { getWeatherInterpretation } from "../../services/meteo-service";
 import MeteoAdvanced from "../../components/MeteoAdvanced/MeteoAdvanced";
 import { useNavigation } from "@react-navigation/native";
+import Container from "../../components/Container/Container";
 
 const Home = () => {
   const [coords, setCoords] = useState();
